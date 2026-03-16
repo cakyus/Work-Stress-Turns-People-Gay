@@ -60,7 +60,7 @@ $month_count = 3; // number of months printed
 $handler = new \GitHandler;
 $handler->command = 'git --git-dir='.$GIT_DIR;
 
-$date_start = 'first day of this month -'.$month_count.' months';
+$date_start = 'first day of this month -'.($month_count - 1).' months';
 $date_stop  = 'this day';
 $commits = get_commits_by_date($handler, $date_start, $date_stop);
 $stat = get_stat_summary($handler, $commits);
@@ -81,7 +81,7 @@ for ($i = 0; $i < $day_count; $i++) {
     $row->addCell(0);
     $row->addCell(0);
     $row->addCell(0);
-    $level_text = '  0%';
+    $level_text = '   0%';
     $row->addCell($level_text);
     if ($i == 0) { $today_level = $level_text; }
     $time = $time - 24 * 60 * 60;
@@ -96,11 +96,11 @@ for ($i = 0; $i < $day_count; $i++) {
   $row->addCell($stat_date->line_count);
   $level = ($stat_date->line_count * 100) / $stat->avg_line_per_day;
   if ($level < 10) {
-    $level_text = '  '.number_format($level).'%';
+    $level_text = '   '.number_format($level).'%';
   } elseif ($level < 100) {
-    $level_text = ' '.number_format($level).'%';
+    $level_text = '  '.number_format($level).'%';
   } else {
-    $level_text = number_format($level).'%';
+    $level_text = ' '.number_format($level).'%';
   }
   if ($i == 0) { $today_level = $level_text; }
   $row->addCell($level_text);
@@ -122,7 +122,7 @@ for ($i = 0; $i < $month_count; $i++) {
     $row->addCell(0);
     $row->addCell(0);
     $row->addCell(0);
-    $level_text = '  0%';
+    $level_text = '   0%';
     $row->addCell($level_text);
     $time = strtotime('-1 month', $time);
     continue;
@@ -136,11 +136,11 @@ for ($i = 0; $i < $month_count; $i++) {
   $level = ($stat_month->line_count * 100)
     / ($stat->line_count);
   if ($level < 10) {
-    $level_text = '  '.number_format($level).'%';
+    $level_text = '   '.number_format($level).'%';
   } elseif ($level < 100) {
-    $level_text = ' '.number_format($level).'%';
+    $level_text = '  '.number_format($level).'%';
   } else {
-    $level_text = number_format($level).'%';
+    $level_text = ' '.number_format($level).'%';
   }
   $row->addCell($level_text);
   $time = strtotime('-1 month', $time);
