@@ -25,8 +25,6 @@
 //
 //   ## Stress Level 30%
 //
-//   Number of commits, files changed, lines changed:
-//
 //       Weekday  Date        Commits Files Lines Level
 //       Sunday   2026-03-15        1     2    10 30% XXX
 //       Monday   2026-03-14        2    12    20 20% XX
@@ -44,7 +42,12 @@
 //    we counted as 2 lines changed
 
 $file  = __DIR__.DIRECTORY_SEPARATOR.'README.md';
-$text  = '# README';
+$text  = 'Religious Affairs Minister Zulkifli Hasan claiming in parliament'
+  .' that work stress turns people gay. Published: 1:37 pm, 28 Jan 2026 '
+  .'[South China Morning Post](https://www.scmp.com/week-asia/politics/article'
+  .'/3341504/malaysians-lampoon-minister-over-stress-gay'
+  .'-link-they-never-work-hard-parliament)'
+  ;
 
 $day_count = 4; // number of days printed
 $month_count = 3; // number of months printed
@@ -140,9 +143,7 @@ for ($i = 0; $i < $month_count; $i++) {
 
 $month_text = $t->save();
 
-$text .= "\n\nNumber of commits, files changed, lines changed:";
 $text .= "\n\n".$date_text."\n".$month_text;
-
 $text .= "\n";
 
 file_put_contents($file, $text);
