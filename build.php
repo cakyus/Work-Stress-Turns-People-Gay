@@ -16,7 +16,7 @@
  **/
 
 // Generate git repository statistics
-// Usage: php build.php <GIT-DIR>
+// Usage: php build.php
 // Requirements:
 //   - git (tested on version 2.34.1)
 // Output:
@@ -41,6 +41,11 @@
 //  * if a commit insert 1 line then the next commit delete the line ,
 //    we counted as 2 lines changed
 
+$GIT_DIR = getenv('GIT_DIR');
+if (empty($GIT_DIR) == true) {
+  fwrite(STDERR, "ERROR environment GIT_DIR is not set.\n"); exit(1);
+}
+
 $file  = __DIR__.DIRECTORY_SEPARATOR.'README.md';
 $text  = 'Religious Affairs Minister Zulkifli Hasan claiming in parliament'
   .' that work stress turns people gay. Published: 1:37 pm, 28 Jan 2026 '
@@ -53,7 +58,7 @@ $day_count = 4; // number of days printed
 $month_count = 3; // number of months printed
 
 $handler = new \GitHandler;
-$handler->command = 'git';
+$handler->command = 'git --git-dir='.$GIT_DIR;
 
 $date_start = 'first day of this month -'.$month_count.' months';
 $date_stop  = 'this day';
