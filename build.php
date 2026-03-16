@@ -42,11 +42,9 @@
 //    we counted as 2 lines changed
 
 $GIT_DIR = getenv('GIT_DIR');
-if (empty($GIT_DIR) == true) {
-  fwrite(STDERR, "ERROR environment GIT_DIR is not set.\n"); exit(1);
-}
 
 $file  = __DIR__.DIRECTORY_SEPARATOR.'README.md';
+fwrite(STDOUT, "FILE ".$file."\n");
 $text  = 'Religious Affairs Minister Zulkifli Hasan claiming in parliament'
   .' that work stress turns people gay. Published: 1:37 pm, 28 Jan 2026 '
   .'[South China Morning Post](https://www.scmp.com/week-asia/politics/article'
@@ -58,7 +56,11 @@ $day_count = 4; // number of days printed
 $month_count = 3; // number of months printed
 
 $handler = new \GitHandler;
-$handler->command = 'git --git-dir='.$GIT_DIR;
+$handler->command = 'git';
+if (empty($GIT_DIR) == false) {
+  fwrite(STDOUT, "GIT_DIR ".$GIT_DIR."\n");
+  $handler->command .= ' --git-dir='.$GIT_DIR;
+}
 
 $date_start = 'first day of this month -'.($month_count - 1).' months';
 $date_stop  = 'this day';
@@ -73,7 +75,6 @@ $row->addCells('Weekday', 'Date', 'Commits', 'Files', 'Lines', 'Level');
 $time = time();
 for ($i = 0; $i < $day_count; $i++) {
   $date = date('Y-m-d', $time);
-  echo($date."\n");
   if (array_key_exists($date, $stat->dates) == false) {
     $row = $t->addRow();
     $row->addCell(date('l', $time));
