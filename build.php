@@ -96,6 +96,7 @@ for ($i = 0; $i < $day_count; $i++) {
   $row->addCell($stat_date->file_count);
   $row->addCell($stat_date->line_count);
   $level = ($stat_date->line_count * 100) / $stat->avg_line_per_day;
+  $level = round($level);
   if ($level < 10) {
     $level_text = '   '.number_format($level).'%';
   } elseif ($level < 100) {
@@ -136,6 +137,7 @@ for ($i = 0; $i < $month_count; $i++) {
   $row->addCell($stat_month->line_count);
   $level = ($stat_month->line_count * 100)
     / ($stat->line_count);
+  $level = round($level);
   if ($level < 10) {
     $level_text = '   '.number_format($level).'%';
   } elseif ($level < 100) {
